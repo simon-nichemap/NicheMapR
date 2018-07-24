@@ -611,30 +611,19 @@ micro_global <- function(loc = "Madison, Wisconsin USA", timeinterval = 12,
     adiab_corr_max <- delta_elev * lapse_max
     adiab_corr_min <- delta_elev * lapse_min
     RAINFALL <- CLIMATE[,2:13]
-    RAINYDAYS <- CLIMATE[,14:25]/10
-    WNMAXX <- CLIMATE[,26:37]/10
+    RAINYDAYS <- CLIMATE[,14:25]
+    WNMAXX <- CLIMATE[,26:37]
     WNMINN<-WNMAXX*0.1 # impose diurnal cycle
-    TMINN <- CLIMATE[,38:49]/10
-    TMAXX <- CLIMATE[,50:61]/10
+    TMINN <- CLIMATE[,38:49]
+    TMAXX <- CLIMATE[,50:61]
     TMAXX<-TMAXX+adiab_corr_max
     TMINN<-TMINN+adiab_corr_min
     ALLMINTEMPS<-TMINN
     ALLMAXTEMPS<-TMAXX
     ALLTEMPS <- cbind(ALLMAXTEMPS,ALLMINTEMPS)
-    RHMINN <- CLIMATE[,62:73]/10
-    RHMAXX <- CLIMATE[,74:85]/10
-    # correct for potential change in RH with elevation-corrected Tair
-    es <- WETAIR(db = TMAXX, rh = 100)$esat
-    e <- WETAIR(db = CLIMATE[,50:61]/10, rh = CLIMATE[,62:73]/10)$e
-    RHMINN <- (e / es) * 100
-    RHMINN[RHMINN>100]<-100
-    RHMINN[RHMINN<0]<-0.01
-    es <- WETAIR(db = TMINN, rh = 100)$esat
-    e <- WETAIR(db = CLIMATE[,38:49]/10, rh = CLIMATE[,74:85]/10)$e
-    RHMAXX <- (e / es) * 100
-    RHMAXX[RHMAXX>100]<-100
-    RHMAXX[RHMAXX<0]<-0.01
-    CCMINN <- CLIMATE[,86:97]/10
+    RHMINN <- CLIMATE[,62:73]
+    RHMAXX <- CLIMATE[,74:85]
+    CCMINN <- CLIMATE[,86:97]
     if(clearsky==1){
       CCMINN=CCMINN*0
     }
